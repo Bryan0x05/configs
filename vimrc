@@ -3,7 +3,13 @@ set nocompatible              " Use modern Vim behavior
 filetype plugin indent on     " Enable filetype detection
 
 " ===== UI / Visual =====
-set number relativenumber     " Show line numbers
+" Hybrid relative-abs line number, save for insert mode which is abs.
+:set number relativenumber
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu | endif
+  autocmd BufLeave,FocusLost,InsertEnter,WinLeave * if &nu | set nornu | endif
+augroup ENDCopied!   
 set cursorline                " Highlight current line
 set showmatch                 " Highlight matching brackets
 set scrolloff=8               " Keep 8 lines above/below cursor
