@@ -9,7 +9,7 @@ augroup numbertoggle
   autocmd!
   autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu | endif
   autocmd BufLeave,FocusLost,InsertEnter,WinLeave * if &nu | set nornu | endif
-augroup ENDCopied!   
+augroup END
 set cursorline                " Highlight current line
 set showmatch                 " Highlight matching brackets
 set scrolloff=8               " Keep 8 lines above/below cursor
@@ -28,4 +28,19 @@ set hlsearch                  " Highlight matches
 " ===== Mouse =====
 set mouse=a                   " Enable mouse support
 
-colorscheme elflord
+" ===== Plugins =====
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin()
+  Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+call plug#end()
+
+autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)')) | PlugInstall --sync | source $MYVIMRC | endif
+
+" ===== Colorscheme =====
+set termguicolors
+colorscheme catppuccin_mocha
