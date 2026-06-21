@@ -35,11 +35,9 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-call plug#begin()
+call plug#begin(data_dir . '/plugged')
   Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 call plug#end()
-
-autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)')) | PlugInstall --sync | source $MYVIMRC | endif
 
 " ===== Colorscheme =====
 set termguicolors
