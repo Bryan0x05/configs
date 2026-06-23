@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 set -uo pipefail
 
-tools=(fd bat fzf zoxide)
+tools=(fd bat fzf zoxide rg)
 
 declare -A tool_aliases=(
-    [fd]="fd-find fd"
+    [fd]="fd-find fd",
+    [rg]="ripgrep rg"
 )
 
 echo "Checking installed tools.."
